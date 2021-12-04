@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -15,7 +16,7 @@
 		
 	    <nav class="m-3 text-center">
 	        <!-- <i class="fas fa-camera mr-4 fa-3x"></i> -->
-	        <a class="h1" style="text-decoration: none; color: #1856B3;">Gender Detection</a>
+	        <a class="h1" style="text-decoration: none; color: #1856B3;">Gender Classification</a>
 	    </nav>
 	    
 
@@ -26,7 +27,7 @@
 
 		<div class="bg-light text-center" >
 			<span>Created and deployed by Augustine Okolie</span>.
-			<span>Check model summary and statistics</span> <a href="https://tensorboard.dev/experiment/2E1Nc3OJTVapp16eXKSjuQ/" target="_blank">here</a>
+			<span>Check model summary and statistics</span> <a href="https://tensorboard.dev/experiment/2E1Nc3OJTVapp16eXKSjuQ/" target="_blank">here</a>. Model description on <a href="#" target="_blank">Github</a>
 		</div>
 	</div>
 	
@@ -87,19 +88,19 @@
 			    if (result[1]>result[0]){
 			    	//no mask on
 			      	ctx.strokeStyle="#730940"
-			      	ctx.fillStyle = "#730940";
-			      	text = "Female: "+(result[1]*100).toPrecision(3).toString()+"%";
+			      	ctx.fillStyle = "#FFFF";
+			      	text = "Woman: "+(result[1]*100).toPrecision(3).toString()+"%";
 					// handleAudioControl()
 			    }else{
-			    	//mask on
+			    	//mask onn 
 			      	ctx.strokeStyle="green"
-			      	ctx.fillStyle = "green";
-			      	text = "Male: "+(result[0]*100).toPrecision(3).toString()+"%";
+			      	ctx.fillStyle = "#FFFF";
+			      	text = "Man: "+(result[0]*100).toPrecision(3).toString()+"%";
 			    }
-		        ctx.lineWidth = "5"
+		        ctx.lineWidth = "4"
 			    ctx.rect(start[0], start[1]-50,size[0], size[1])
 			    ctx.stroke()
-			    ctx.font = "bolder 15pt Helvetica";
+			    ctx.font = "bold 12pt Helvetica";
 			    ctx.fillText(text,start[0]+20,start[1])
 		    }     
 		}
@@ -122,12 +123,14 @@
 	    canvas.width  = videoWidth;
 	    canvas.height = videoHeight;
 	    ctx           = canvas.getContext('2d');
+
+		
 	    ctx.fillStyle = "rgba(255, 0, 0, 0.5)"; 
 
 	    model         = await blazeface.load();
 		
 	    
-	    mask_model    = await tf.loadLayersModel('./static/models/model.json');
+	    mask_model    = await tf.loadLayersModel('../static/models/model.json');
 
 	   renderPrediction();
 	};
