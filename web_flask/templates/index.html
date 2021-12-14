@@ -32,15 +32,11 @@
 			<span>Created and deployed by Augustine Okolie</span>.
 			<span>Check model summary and statistics</span> <a href="https://github.com/Austine316/gender_classification" target="_blank">here</a>.
 		</div>
-	</div>
-	
-
-	
+	</div>	
 
 	<!-- <button onclick="handleAudioControl()">Play Alarm</button> -->
 </body>
 <script>
-	//Coded by oh yicong, visit my youtube channel for more programming tutorials :)
 	var model, mask_model, ctx, videoWidth, videoHeight, canvas;
 	const video = document.getElementById('video');
 	const state = {
@@ -85,7 +81,7 @@
 			    inputImage = inputImage.sub(offset).div(offset);
 			    inputImage=inputImage.slice([parseInt(start[1]),parseInt(start[0]),0],[parseInt(size[1]),parseInt(size[0]),3])
 			    inputImage=inputImage.resizeBilinear([224,224]).reshape([1,224,224,3])
-			    result=mask_model.predict(inputImage).dataSync()
+			    result=gender_model.predict(inputImage).dataSync()
 			    result= Array.from(result)
 			    ctx.beginPath()
 			    if (result[1]>result[0]){
@@ -133,7 +129,7 @@
 	    model         = await blazeface.load();
 		
 	    
-	    mask_model    = await tf.loadLayersModel('../static/models/model.json');
+	    gender_model    = await tf.loadLayersModel('../static/models/model.json');
 
 	   renderPrediction();
 	};
