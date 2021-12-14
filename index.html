@@ -129,7 +129,7 @@
 	    model         = await blazeface.load();
 		
 	    
-	    gender_model    = await tf.loadLayersModel('../static/models/model.json');
+	    gender_model    = await tf.loadLayersModel('./static/models/model.json');
 
 	   renderPrediction();
 	};
