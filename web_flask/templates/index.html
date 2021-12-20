@@ -37,7 +37,7 @@
 	<!-- <button onclick="handleAudioControl()">Play Alarm</button> -->
 </body>
 <script>
-	var model, mask_model, ctx, videoWidth, videoHeight, canvas;
+	var model, gender_model, ctx, videoWidth, videoHeight, canvas;
 	const video = document.getElementById('video');
 	const state = {
 	  backend: 'webgl'
@@ -62,7 +62,7 @@
 		tf.engine().startScope()
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		//estimatefaces model takes in 4 parameter (1) video, returnTensors, flipHorizontal, and annotateBoxes
-		const predictions = await model.estimateFaces(video, true,false,false);
+		const predictions = await model.estimateHands(video);
 		const offset = tf.scalar(127.5);
 		//check if prediction length is more than 0
 		if (predictions.length > 0) {
@@ -126,29 +126,14 @@
 		
 	    ctx.fillStyle = "rgba(255, 0, 0, 0.5)"; 
 
-	    model         = await blazeface.load();
+	    model         = await handpose.load();
 		
-	    
 	    gender_model    = await tf.loadLayersModel('../static/models/model.json');
 
 	   renderPrediction();
 	};
 
 	setupPage();
-
-	// function handleAudioControl() {
-   	// 	isPlaying ? clearInterval(intervalID) : play();
-	// 	isPlaying = !isPlaying
-  	// }
-
-	// function play() {
-  	// 	var audio = new Audio('mixkit-alert-alarm-1005.mp3');
-	// 	function soundPlayer() {
-    //   		audio.play();
-	// 	}
-	// 	intervalID = setInterval(soundPlayer, 3000);
-	// }
-
 
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
